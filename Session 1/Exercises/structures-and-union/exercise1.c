@@ -51,15 +51,16 @@ struct Book
 
 void insertDataBook(struct Book *bk) {
    printf("Masukkan judul buku: ");
-   scanf("%s", bk->title);
+   getchar();
+   fgets(bk->title, sizeof(bk->title), stdin);
    printf("Masukkan pengarang buku: ");
-   scanf("%s", bk->author);
+   fgets(bk->author, sizeof(bk->author), stdin);
    printf("Masukkan tahun terbit buku: ");
    scanf("%d", &bk->year);
 }
 
 void showingDataBook(struct Book bk) {
-   printf("Title: %s\nAuthor: %s\nYear: %d", bk.title, bk.author, bk.year);
+   printf("Title: %sAuthor: %sYear: %d", bk.title, bk.author, bk.year);
 }
 
 int main() {
