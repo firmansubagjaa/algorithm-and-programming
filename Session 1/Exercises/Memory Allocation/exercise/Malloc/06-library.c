@@ -48,6 +48,30 @@ void showingBuku(struct Buku *buku, int jumlah) {
     }
 }
 
+void pencarianBuku(struct Buku *buku, int jumlah) {
+    char keyword[50];
+    int found = 0;
+    
+    printf("\nCari buku berdasarkan judul: ");
+    getchar(); // Clear buffer
+    fgets(keyword, sizeof(keyword), stdin);
+    keyword[strcspn(keyword, "\n")] = '\0';
+
+    for (int i = 0; i < jumlah; i++) {
+        if (strcmp(keyword, buku[i].judul) == 0) {
+            printf("Buku ditemukan!\n");
+            printf("Judul: %s\nPengarang: %s\nJumlah Halaman: %d\n", 
+                   buku[i].judul, buku[i].pengarang, buku[i].jumlahHalaman);
+            found = 1;
+            break;
+        }
+    }
+    
+    if (!found) {
+        printf("Buku dengan judul '%s' tidak ditemukan!\n", keyword);
+    }
+}
+
 int main() {
     struct Buku *buku1;
     int unsigned jumlah;
@@ -66,6 +90,7 @@ int main() {
 
     inputBuku(buku1, jumlah);
     showingBuku(buku1, jumlah);
+    pencarianBuku(buku1, jumlah);
     free(buku1);
     return 0;
 }
