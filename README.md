@@ -11,5 +11,9 @@ Dan disini dia mempelajari poin yang sudah disebutkan secara bertahap. Berikut a
     - Struct
     - Union
     - Typedef
+- Memory Allocation
+    - Malloc
+    - Realloc
+    - Free
 
 Harapan dia untuk mempelajari bahasa C ini secara mendalam untuk mempermudah dia untuk memahami mata kuliah selanjutnya yaitu *Data Structure and Algorithm*.
