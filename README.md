@@ -6,6 +6,12 @@ Ada beberapa poin yang sudah saya pelajari, dia sudah mempelajari sebagian dari 
 
 Dan disini dia mempelajari poin yang sudah disebutkan secara bertahap. Berikut apa yang sudah dipelajari :
 - Pointers & Arrays
+    - Pointers
+        - Single Deferencing
+        - Double Deferencing
+    - Arrays
+        - Single Dimension
+        - Multidimension
 - Function & Recursion
 - Structures & union
     - Struct
