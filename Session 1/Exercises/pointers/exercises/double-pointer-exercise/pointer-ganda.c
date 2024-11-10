@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int ubahNilai(int **ptr2) {
-    **ptr2 = 50;
+    **ptr2 = 100;
 }
 
 int main() {
