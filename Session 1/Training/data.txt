@@ -1,0 +1,3 @@
+Nama: John Doe
+NIM: 12345678
+Nilai: 88.5
