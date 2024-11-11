@@ -1,0 +1,12 @@
+Nama: irman Subagja
+NIM: 1
+Nilai: 90.00
+Nama: Farhan Anzilan
+NIM: 2
+Nilai: 80.00
+Nama: Dalfan Faza
+NIM: 3
+Nilai: 85.00
+Nama: Dyanisita
+NIM: 4
+Nilai: 70.00
