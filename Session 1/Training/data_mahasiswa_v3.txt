@@ -1,0 +1,9 @@
+Nama: irman
+NIM: 1
+Nilai: 100.000000
+Nama: ubagja
+NIM: 2
+Nilai: 90.000000
+Nama: uryani
+NIM: 3
+Nilai: 80.000000
