@@ -56,21 +56,7 @@ struct Barang* postData(struct Barang *barang, int *jumlah, int *kapasitas, FILE
     return barang;
 }
 
-void addData(FILE *file, const char *filename, struct Barang *barang, int *jumlah, int *kapasitas) {
-    if (file == NULL) {
-        fprintf(stderr, "Terjadi kesalahan pada saat menambahkan data.");
-        closeFile(file);
-        exit(1);
-    }
-
-    if (*jumlah >= *kapasitas) {
-        *kapasitas *= 2;
-        barang = (struct Barang*)realloc(barang, *kapasitas * sizeof(struct Barang));
-        if (barang == NULL) {
-            fprintf(stderr, "Gagal merelokasikan memori!");
-            exit(1);
-        }
-    }
+void addData(FILE *file, struct Barang *barang, const int *jumlah) {
     for (int i = 0; i < jumlah; i++) {
         fprintf(file, "%s | %d | %.2f\n",
         (barang + i)->nama,
