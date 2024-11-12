@@ -26,7 +26,7 @@ void closeFile(FILE *file) {
     }
 }
 
-void addData(FILE *file, const char *filename) {
+void addData(FILE *file, const char *filename, struct Barang) {
     if (file == NULL) {
         fprintf(stderr, "Terjadi kesalahan pada saat menambahkan data.");
         return;
