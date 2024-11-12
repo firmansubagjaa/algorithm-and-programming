@@ -27,6 +27,35 @@ void closeFile(FILE *file) {
     }
 }
 
+struct Barang* postData(struct Barang *barang, int *jumlah, int *kapasitas, FILE *file) {
+    if (*jumlah >= *kapasitas) {
+        *kapasitas *= 2;
+        barang = (struct Barang*)realloc(barang, *kapasitas * sizeof(struct Barang));
+        if (barang == NULL) {
+            fprintf(stderr, "Gagal alokasi ulang memori!");
+            closeFile(file);
+            exit(1);
+        }
+    }
+    printf("Masukkan nama barang: ");
+    getchar();
+    fgets(barang[*jumlah].nama, sizeof(barang[*jumlah].nama), stdin);
+    barang[*jumlah].nama[strcspn(barang[*jumlah].nama, "\n")] = '\0';
+
+    printf("Masukkan jumlah stok: ");
+    while (scanf("%d", &barang[*jumlah].stok) != 1) {
+        printf("Input yang anda masukkan harus berupa angka, silahkan dimasukkan kembali: ");
+        while(getchar() != "\n");
+    }
+    printf("Masukkan harga barang: ");
+    while (scanf("%d", &barang[*jumlah].harga) != 1) {
+        printf("Input yang anda masukkan harus berupa angka, silahkan dimasukkan kembali: ");
+        while(getchar() != "\n");
+    }
+    (*jumlah)++;
+    return barang;
+}
+
 void addData(FILE *file, const char *filename, struct Barang *barang, int *jumlah, int *kapasitas) {
     if (file == NULL) {
         fprintf(stderr, "Terjadi kesalahan pada saat menambahkan data.");
