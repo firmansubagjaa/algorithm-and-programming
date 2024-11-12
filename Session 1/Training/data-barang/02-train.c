@@ -8,9 +8,9 @@ struct Barang {
     float harga;
 };
 
-FILE *openFile(const char *filename) {
+FILE *openFile(const char *filename, char *mode) {
     FILE *check = fopen(filename, "r");
-    FILE *file = fopen(filename, "w");
+    FILE *file = fopen(filename, mode);
     if (file == NULL) {
         fprintf(stderr, "Terjadi kesalahan.");
         return NULL;
@@ -21,17 +21,50 @@ FILE *openFile(const char *filename) {
 
 void closeFile(FILE *file) {
     if (file != NULL) {
+        free(file);
         fclose(file);
         printf("\nBerhasil untuk menutupkan file.\n");
     }
 }
 
-void addData(FILE *file, const char *filename, struct Barang) {
+void addData(FILE *file, const char *filename, struct Barang *barang, int *jumlah, int *kapasitas) {
     if (file == NULL) {
         fprintf(stderr, "Terjadi kesalahan pada saat menambahkan data.");
-        return;
+        closeFile(file);
+        exit(1);
     }
-    fprintf(file, "Nama: Firman");
-    fprintf(file, "NIM: A001");
-    fprintf(file, "Nilai: 100");
+
+    if (*jumlah >= *kapasitas) {
+        *kapasitas *= 2;
+        barang = (struct Barang*)realloc(barang, *kapasitas * sizeof(struct Barang));
+        if (barang == NULL) {
+            fprintf(stderr, "Gagal merelokasikan memori!");
+            exit(1);
+        }
+    }
+    for (int i = 0; i < jumlah; i++) {
+        fprintf(file, "%s | %d | %.2f\n",
+        (barang + i)->nama,
+        (barang + i)->stok,
+        (barang + i)->harga
+        );
+    }
+}
+
+int main() {
+    char filename[50] = "data_barang.txt";
+    FILE *file = openFile(filename, "w");
+    int jumlahBarang = 0;
+    int kapasitas = 2;
+    struct Barang *barang = (struct Barang*)malloc(kapasitas * sizeof(struct Barang));
+
+    if (barang == NULL) {
+        fprintf(stderr, "Gagal mengalokasi memori!");
+        return 1;
+    }
+
+    int pilihan;
+    do {
+
+    } while (pilihan != 2);
 }
