@@ -16,26 +16,30 @@ FILE *openFile(const char *filename, char *mode) {
         return NULL;
     }
     printf("\nBerhasil untuk %s file %s.\n", check == NULL ? "Membuat" : "Membuka");
+    if (check != NULL) {
+        fclose(check);
+    }
     return file;
 }
 
 void closeFile(FILE *file) {
     if (file != NULL) {
-        free(file);
         fclose(file);
-        printf("\nBerhasil untuk menutupkan file.\n");
+        printf("\nBerhasil untuk menutup file.\n");
     }
 }
 
 struct Barang* postData(struct Barang *barang, int *jumlah, int *kapasitas, FILE *file) {
     if (*jumlah >= *kapasitas) {
         *kapasitas *= 2;
-        barang = (struct Barang*)realloc(barang, *kapasitas * sizeof(struct Barang));
-        if (barang == NULL) {
+        struct Barang *temp = (struct Barang*)realloc(barang, *kapasitas * sizeof(struct Barang));
+        if (temp == NULL) {
             fprintf(stderr, "Gagal alokasi ulang memori!");
             closeFile(file);
+            free(barang);
             exit(1);
         }
+        barang = temp;
     }
     printf("Masukkan nama barang: ");
     getchar();
@@ -43,25 +47,25 @@ struct Barang* postData(struct Barang *barang, int *jumlah, int *kapasitas, FILE
     barang[*jumlah].nama[strcspn(barang[*jumlah].nama, "\n")] = '\0';
 
     printf("Masukkan jumlah stok: ");
-    while (scanf("%d", &barang[*jumlah].stok) != 1) {
+    while (scanf("%u", &barang[*jumlah].stok) != 1) {
         printf("Input yang anda masukkan harus berupa angka, silahkan dimasukkan kembali: ");
-        while(getchar() != "\n");
+        while(getchar() != '\n');
     }
     printf("Masukkan harga barang: ");
-    while (scanf("%d", &barang[*jumlah].harga) != 1) {
+    while (scanf("%f", &barang[*jumlah].harga) != 1) {
         printf("Input yang anda masukkan harus berupa angka, silahkan dimasukkan kembali: ");
-        while(getchar() != "\n");
+        while(getchar() != '\n');
     }
     (*jumlah)++;
     return barang;
 }
 
-void addData(FILE *file, struct Barang *barang, const int *jumlah) {
-    for (int i = 0; i < jumlah; i++) {
+void addDatatoFile(FILE *file, struct Barang *barang, const int *jumlah) {
+    for (int i = 0; i < *jumlah; i++) {
         fprintf(file, "%s | %d | %.2f\n",
-        (barang + i)->nama,
-        (barang + i)->stok,
-        (barang + i)->harga
+            barang[i].nama,
+            barang[i].stok,
+            barang[i].harga
         );
     }
 }
@@ -69,12 +73,17 @@ void addData(FILE *file, struct Barang *barang, const int *jumlah) {
 int main() {
     char filename[50] = "data_barang.txt";
     FILE *file = openFile(filename, "w");
+    if (file == NULL) {
+        return 1;
+    }
+    
     int jumlahBarang = 0;
     int kapasitas = 2;
     struct Barang *barang = (struct Barang*)malloc(kapasitas * sizeof(struct Barang));
 
     if (barang == NULL) {
         fprintf(stderr, "Gagal mengalokasi memori!");
+        fclose(file);
         return 1;
     }
 
@@ -86,14 +95,22 @@ int main() {
         printf("Pilihan: ");
         scanf("%d", &pilihan);
 
-        switch (pilihan)
-        {
-        case 1:
-            barang = postData(barang, &jumlahBarang, &kapasitas, file);
-            break;
-        
-        default:
-            break;
+        switch (pilihan) {
+            case 1:
+                barang = postData(barang, &jumlahBarang, &kapasitas, file);
+                break;
+            case 2:
+                addDatatoFile(file, barang, &jumlahBarang);
+                closeFile(file);
+                break;
+            default:
+                printf("\nPilihan tidak valid.");
+                break;
         }
     } while (pilihan != 2);
+
+    free(barang);
+    printf("\nMemori berhasil dilepaskan.\n");
+
+    return 0;
 }
