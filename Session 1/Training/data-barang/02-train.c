@@ -80,6 +80,10 @@ int main() {
 
     int pilihan;
     do {
-
+        printf("\nPilihan menu:\n");
+        printf("1. Tambah Barang\n");
+        printf("2. Simpan dan keluar\n");
+        printf("Pilihan: ");
+        scanf("%d", &pilihan);
     } while (pilihan != 2);
 }
