@@ -70,12 +70,12 @@ int main() {
     int pilihan;
     do {
         printf("\nPilihan menu:\n1. Tambah Barang\n2. Simpan dan Keluar\nPilihan: ");
-        scanf("%d", & pilihan);
+        scanf("%d", &pilihan); // Fixed spacing around &
 
         switch (pilihan)
         {
         case 1:
-            barang = tambahBarang(barang, &jumlah, &kapasitas);
+            barang = addThings(barang, &jumlah, &kapasitas);
             break;
         case 2:
             if (file != NULL) {
