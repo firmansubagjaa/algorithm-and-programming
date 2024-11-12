@@ -85,5 +85,15 @@ int main() {
         printf("2. Simpan dan keluar\n");
         printf("Pilihan: ");
         scanf("%d", &pilihan);
+
+        switch (pilihan)
+        {
+        case 1:
+            barang = postData(barang, &jumlahBarang, &kapasitas, file);
+            break;
+        
+        default:
+            break;
+        }
     } while (pilihan != 2);
 }
