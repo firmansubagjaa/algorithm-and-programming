@@ -14,16 +14,9 @@ int main() {
         return 1;
     }
 
-    // Initialize all elements to 0 first
-    for (int i = 0; i < size; i++) {
-        arr[i] = 0;
-    }
-
     // Set values for every 3rd element
     for (int i = 0; i < size; i++) {
-        if (i % 3 == 0) {
-            arr[i] = i + 1;
-        }
+         arr[i] = (i + 1) * 3;
     }
 
     printf("Menampilkan elemen number di dalam array:\n");
