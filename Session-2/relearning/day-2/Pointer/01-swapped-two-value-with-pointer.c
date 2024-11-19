@@ -2,6 +2,10 @@
 #include <stdlib.h>
 
 void swapped(int *ptr1, int *ptr2) {
+    if (ptr1 == NULL || ptr2 == NULL) {
+        fprintf(stderr, "Error: Pointer tidak valid!\n");
+        return;
+    }
     int temp = *ptr1;
     *ptr1 = *ptr2;
     *ptr2 = temp;
@@ -18,9 +22,10 @@ int main() {
     printf("num2: %d\n", *ptr2);
 
     swapped(ptr1, ptr2);
-    printf("\nNilai sesudah di tukar:\n");
 
+    printf("\nNilai sesudah di tukar:\n");
     printf("num1: %d\n", *ptr1);
     printf("num2: %d\n", *ptr2);
+    
     return 0;
 }
